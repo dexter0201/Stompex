@@ -336,6 +336,11 @@ defmodule Stompex.Api do
         GenServer.call(conn, { :send, destination, message })
       end
 
+      @spec send(pid, String.t, Stompex.Frame.t) :: :ok | { :error, :gen_tcp.reason }
+      def send(conn, destination, frame) do
+        GenServer.call(conn, { :send, destination, frame })
+      end
+
     end
   end
 
