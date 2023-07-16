@@ -321,6 +321,10 @@ defmodule Stompex.Api do
         GenServer.cast(conn, { :nack, frame })
       end
 
+      @spec send(pid, String.t, Stompex.Frame.t) :: :ok | { :error, :gen_tcp.reason }
+      def send(conn, destination, frame) do
+        GenServer.call(conn, { :send, destination, frame })
+      end
 
       @doc """
       Send a message to the specified destination. This function
@@ -334,11 +338,6 @@ defmodule Stompex.Api do
       @spec send(pid, String.t, String.t) :: :ok | { :error, :gen_tcp.reason }
       def send(conn, destination, message) do
         GenServer.call(conn, { :send, destination, message })
-      end
-
-      @spec send(pid, String.t, Stompex.Frame.t) :: :ok | { :error, :gen_tcp.reason }
-      def send(conn, destination, frame) do
-        GenServer.call(conn, { :send, destination, frame })
       end
 
     end
