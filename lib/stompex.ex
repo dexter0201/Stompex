@@ -82,7 +82,7 @@ defmodule Stompex do
   @doc false
   def connect(_info, %{ secure: secure, host: host, port: port, timeout: timeout } = state) do
     conn_opts = case secure do
-      true -> [ state.ssl_opts | @tcp_opts ]
+      true -> state.ssl_opts ++ @tcp_opts
       false -> @tcp_opts
     end
     
